@@ -115,5 +115,80 @@ V(net2)$label.cex=.4
 V(net2)$label.font=2
 
 
-
 plot(net2, vertex.label.color="white", vertex.size=(2-V(net2)$type)*8) 
+
+#network metrics
+edge_density(net, loops=F)
+
+reciprocity(net)
+dyad_census(net) # Mutual, asymmetric, and nyll node pairs
+2*dyad_census(net)$mut/ecount(net) # Calculating reciprocity
+
+transitivity(net, type="global")  # net is treated as an undirected network
+transitivity(as.undirected(net, mode="collapse")) # same as above
+transitivity(net, type="local")
+triad_census(net) # for directed networks 
+
+diameter(net, directed=F, weights=NA)
+diameter(net, directed=F)
+diam <- get_diameter(net, directed=T)
+diam
+
+class(diam)
+as.vector(diam)
+
+#node level metrics
+deg <- degree(net, mode="all")
+plot(net, vertex.size=deg*3)
+hist(deg, breaks=1:vcount(net)-1, main="Histogram of node degree")
+
+deg.dist <- degree_distribution(net, cumulative=T, mode="all")
+plot( x=0:max(deg), y=1-deg.dist, pch=19, cex=1.2, col="orange", xlab="Degree", ylab="Cumulative Frequency")
+
+degree(net, mode="in")
+centr_degree(net, mode="in", normalized=T)
+
+closeness(net, mode="all", weights=NA) 
+centr_clo(net, mode="all", normalized=T) 
+
+eigen_centrality(net, directed=T, weights=NA)
+centr_eigen(net, directed=T, normalized=T) 
+
+betweenness(net, directed=T, weights=NA)
+edge_betweenness(net, directed=T, weights=NA)
+centr_betw(net, directed=T, normalized=T)
+
+#cluster level metrics
+hs <- hub_score(net, weights=NA)$vector
+as <- authority_score(net, weights=NA)$vector
+
+par(mfrow=c(1,2))
+plot(net, vertex.size=hs*50, main="Hubs")
+plot(net, vertex.size=as*30, main="Authorities")
+
+net.sym <- as.undirected(net, mode= "collapse", edge.attr.comb=list(weight="sum", "ignore"))
+
+#cliques
+cliques(net.sym) # list of cliques       
+sapply(cliques(net.sym), length) # clique sizes
+largest_cliques(net.sym) # cliques with max number of nodes
+
+vcol <- rep("grey80", vcount(net.sym))
+vcol[unlist(largest_cliques(net.sym))] <- "gold"
+plot(as.undirected(net.sym), vertex.label=V(net.sym)$name, vertex.color=vcol)
+
+#community detection (unsupervised)
+ceb <- cluster_edge_betweenness(net) 
+dendPlot(ceb, mode="hclust")
+plot(ceb, net) 
+length(ceb)
+membership(ceb)
+
+
+
+
+
+
+
+
+
