@@ -49,3 +49,44 @@ V(g)$size <- degree(g)
 V(g)$label.cex <- degree(g) * 0.2
 
 plot(g, layout = layout_with_graphopt)
+
+#tnet analysis
+library(tnet)
+
+tm<-get.edgelist(g, names=FALSE)
+head(tm)  # check to make sure it worked
+
+NodeLabels <- V(g)$name
+head(NodeLabels)   # Again, check
+
+mt <- tm[, c(2, 1)]
+head(mt)
+
+deg_tm <- degree_tm(tm)
+deg_mt <- degree_tm(mt)
+
+#converting from bimodal networks to unimodal networks
+bipartite_matrix <- as_incidence_matrix(g)
+bipartite_matrix
+
+t(bipartite_matrix)
+
+
+event_matrix_prod <- t(bipartite_matrix) %*% bipartite_matrix 
+## crossprod() does same and scales better, but this is better to learn at first at first so you understand the method
+diag(event_matrix_prod) <- 0
+event_matrix_prod
+
+person_matrix_prod <- bipartite_matrix %*% t(bipartite_matrix)
+diag(person_matrix_prod) <- 0
+person_matrix_prod
+
+
+women_overlap <- graph_from_adjacency_matrix(person_matrix_prod, 
+                                        mode = "undirected", 
+                                        weighted = TRUE)
+women_overlap
+
+
+E(women_overlap)$weight
+
