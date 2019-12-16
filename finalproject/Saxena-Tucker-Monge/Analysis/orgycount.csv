@@ -1,0 +1,515 @@
+"","Var1","Freq"
+"1"," Columbia University Medical Center",1
+"2","Aalborg University",2
+"3","Aalto University",10
+"4","Aarhus University",5
+"5","Accenture Technology Labs",2
+"6","Adobe",1
+"7","Adobe Research",13
+"8","Agriculture and Agri-Food Canada",1
+"9","AIT Austrian Institute of Technology",1
+"10","AIT Austrian Institute of Technology GmbH",1
+"11","Ajou University",2
+"12","American Cancer Society",1
+"13","Anne Arundel Medical Center",1
+"14","Apple Inc.",1
+"15","Arizona State University",3
+"16","Astral Film",1
+"17","Athena Research & Innovation Center",1
+"18","Auckland Bioengineering Institute",1
+"19","Auckland University of Technology",1
+"20","Autodesk Research",2
+"21","B12",1
+"22","Bahcesehir University",1
+"23","Bangladesh University of Engineering and Technology",1
+"24","Bauhaus-Universitat Weimar",1
+"25","BBC R&D",1
+"26","BBC Research",1
+"27","Beihang University",2
+"28","Bentley University",1
+"29","Berger-Levrault",1
+"30","Berlin University of the Arts",1
+"31","Blast Theory",1
+"32","Bloomberg",1
+"33","BMW Group Research",1
+"34","Bonn-Rhein-Sieg University",1
+"35","Bonn-Rhein-Sieg University of Applied Sciences",1
+"36","Boston University",1
+"37","Breda University of Applied Sciences",1
+"38","Brigham Young University",1
+"39","Brown University",2
+"40","Brunel University London",2
+"41","Bucknell University",2
+"42","Bundeswehr University Munich",3
+"43","ByteDance AI Lab",1
+"44","California Institute of Technology",1
+"45","Canterbury Christ Church University",1
+"46","Carleton University",1
+"47","Carnegie Mellon Univeristy",1
+"48","Carnegie Mellon University",38
+"49","Centrum Wiskunde & Informatica",2
+"50","CERN",2
+"51","Chalmers University of Technology",2
+"52","Chemnitz University of Technology",1
+"53","Children's National Medical Center",1
+"54","City University of Hong Kong",2
+"55","City University of London",1
+"56","Clemson University",2
+"57","CNR-ISTI",1
+"58","CNRS",2
+"59","CNRS – Sorbonne Universite",1
+"60","Coburg University",1
+"61","Colby College",1
+"62","Colorado State University",1
+"63","Columbia University",4
+"64","Columbia University Medical Center",1
+"65","Columbia University Teachers College",1
+"66","Conservatoire National des Arts et Metiers",1
+"67","Cornell Tech",9
+"68","Cornell University",14
+"69","Creighton University",1
+"70","CRUK Manchester Institute",1
+"71","CSIRO",1
+"72","Cyn",1
+"73","Cyprus University of Technology",1
+"74","Dartmouth College",3
+"75","Data61 - CSIRO",1
+"76","De La Salle University",1
+"77","Deakin University",2
+"78","Delft University of Technology",1
+"79","Disney Research",1
+"80","Dongguk University",1
+"81","Drexel University",5
+"82","Dundalk Institute of Technology",1
+"83","East China Normal University",1
+"84","ecole de Technologie Superieure",1
+"85","ecole Polytechnique Federale de Lausanne",2
+"86","Edinburgh University",2
+"87","Eindhoven University of Technology",12
+"88","Emerson College",1
+"89","Escape Character Inc.",1
+"90","Escuela Superior Politecnica del Litoral",1
+"91","ETH Zurich",3
+"92","European Bioinformatics Institute",1
+"93","Facebook",5
+"94","Facebook Reality Labs",1
+"95","Fashion Institute of Technology",1
+"96","Federal University of Ceara",1
+"97","Figure Eight Inc.",1
+"98","FinancialForce",1
+"99","Florida State University",4
+"100","Fondazione Bruno Kessler",1
+"101","Fordham University",1
+"102","Fraunhofer Insitute for Industrial Engineering IAO",1
+"103","Fraunhofer Institute for Industrial Engineering IAO",1
+"104","Free University of Bolzano",1
+"105","Fresenius Medical Care North America",1
+"106","Friedrich-Alexander-Universitat Erlangen-Nurnberg",1
+"107","Fu-Jen University",1
+"108","Fudan University",2
+"109","Fuji Xerox",1
+"110","Future University Hakodate",2
+"111","FX Palo Alto Laboratory",1
+"112","Gallaudet University",1
+"113","George Mason University",3
+"114","Georgetown University",1
+"115","Georgia Institute of Technology",17
+"116","German Research Center for Artificial Intelligence",5
+"117","Google",10
+"118","Google Brain",1
+"119","Google Research",1
+"120","Graz University of Technology",2
+"121","Hannan University",1
+"122","Hanyang University",1
+"123","Harvard Business School",1
+"124","Harvard University",4
+"125","Hasselt University",1
+"126","Hasso Plattner Institute",1
+"127","Haukeland University Hospital",1
+"128","Hearing Hacks",1
+"129","Hebrew University of Jerusalem",1
+"130","Heilbronn University",1
+"131","Helvia Technologies",1
+"132","Heriot-Watt University",1
+"133","Hong Kong University of Science and Technology",6
+"134","Hopital Pitie Salpetriere",1
+"135","IBM Research",6
+"136","IBM Research Brazil",1
+"137","IIT Bombay",2
+"138","Imperial College London",2
+"139","Independent",1
+"140","Independent Creative",1
+"141","Independent Researcher",3
+"142","Indiana University",10
+"143","Indiana University & Purdue University",3
+"144","Indraprastha Institute of Information Technology",2
+"145","Information Technology University",4
+"146","Ingenuity i/o",1
+"147","INM-Leibniz Institute for New Materials",1
+"148","Inria",1
+"149","INRIA",1
+"150","Inria Bordeaux Sud-Ouest",1
+"151","Inria Universite Paris-Saclay",2
+"152","Inria Universite Paris-Saclay and Texas AM University",1
+"153","Inst. Universitaria Antonio Jose Camacho",1
+"154","Institut de la Dignite et des Droits Humains",1
+"155","Institute of Software Chinese Academy of Sciences",2
+"156","Instituto Superior Tecnico Persuasive Tech Lab Madeira-ITI",1
+"157","Instituto Superior Tecnico University of Lisbon",1
+"158","Intactile Design",1
+"159","Intel Corporation",2
+"160","Intel Visual Computing Institute",1
+"161","Interdisciplinary Center",1
+"162","Interdisciplinary Center IDC",1
+"163","International Computer Science Institute",1
+"164","International Federation of Red Cross & Red Crescent Societies",1
+"165","International Federation of Red Cross and Red Crescent Societies",1
+"166","International Institute of Socio-Informatics",1
+"167","International University of Management",1
+"168","IRT",1
+"169","IT University of Copenhagen",1
+"170","Jaguar Land Rover Ltd.",1
+"171","Japan Broadcasting Corporation",1
+"172","Johns Hopkins University",1
+"173","Julius-Maximilians-University",1
+"174","KAI Inc.",1
+"175","Kaiser Permanente Washington Health Research Institute",2
+"176","Karlsruhe Institute of Technology",1
+"177","Karlstad University",1
+"178","Katholieke Universiteit Leuven",1
+"179","Katholische Universitat Eichstatt-Ingolstadt",1
+"180","Keio University",1
+"181","Keio University Graduate School of Media Design",1
+"182","Kensington Park School",1
+"183","King's College London",1
+"184","Know Center",1
+"185","Koc University",1
+"186","Kochi University of Technology",2
+"187","Korea Advanced Institute of Science and Technology",14
+"188","Korea University",2
+"189","KTH Royal Institute of Technology",5
+"190","KTH Royal Institute of Technology in Stockholm",1
+"191","KU Leuven",1
+"192","Kyoto Sangyo University",1
+"193","Laboratory for Intelligent Systems in Tourism",1
+"194","Lahore University of Management Sciences",1
+"195","Lancaster University",11
+"196","Langara College",1
+"197","Leibniz Universtat Hannover",1
+"198","Leiden University",1
+"199","LinkedIn",1
+"200","LMU Munich",1
+"201","Lodz University of Technology",1
+"202","Lucerne University of Applied Sciences and Arts",1
+"203","Ludwig Maximilian University of Munich",10
+"204","Ludwig Maximilians University Munich",1
+"205","Lulea University of Technology",1
+"206","Macalester College",1
+"207","Macalester University",1
+"208","Madeira-ITI University of Madeira",1
+"209","Madeira Interactive Technologies Institute & University of Lisbon",1
+"210","Marquette University",1
+"211","Massachusetts Institute of Technology",10
+"212","Massey University",1
+"213","Mattapan Food and Fitness Coalition",1
+"214","Max Planck Institute for Intelligent Systems",1
+"215","McGill University",2
+"216","Meiji University",1
+"217","Melbourne University",1
+"218","Michigan State University",2
+"219","Michigan Technological University",1
+"220","Microsoft",5
+"221","Microsoft Corporation",2
+"222","Microsoft Research",27
+"223","Microsoft Research India",1
+"224","MishMashMakers",2
+"225","Monash University",12
+"226","Montgomery Blair High School",1
+"227","Mozilla Foundation",1
+"228","Nanjing University of Aeronautics and Astronautics",1
+"229","Narxoz University",1
+"230","National and Kapodistrian University of Athens",1
+"231","National Center for Atmospheric Research",1
+"232","National Chengchi University",1
+"233","National Chiao Tung University",7
+"234","National Kidney Foundation",1
+"235","National Taiwan University",4
+"236","National Tsing Hua University",1
+"237","National University of Singapore",2
+"238","Naval Postgraduate School",1
+"239","New Jersey Institute of Technology",1
+"240","New York Hall of Science",1
+"241","New York University",6
+"242","Newcastle University",14
+"243","Nippon Telegraph and Telephone Corporation",1
+"244","Nofima",1
+"245","North Carolina State University",1
+"246","North South University",1
+"247","Northeastern University",7
+"248","Northumbria University",13
+"249","Northwestern University",13
+"250","NTT Communication Science Laboratories",1
+"251","NTT DOCOMO",1
+"252","NVIDIA",1
+"253","Oberlin College",1
+"254","OFFIS - Institute for Information Technology",1
+"255","Open Lab",1
+"256","Oregon State University",1
+"257","Osaka University",1
+"258","Parkview Research Center",1
+"259","Peking Union Medical College Hospital",1
+"260","Peking University",1
+"261","Pennsylvania State University",5
+"262","Philips Academy",1
+"263","Playing Out CIC",1
+"264","Pohang University of Science and Technology",1
+"265","Politecnico di Torino",2
+"266","Pomona College",2
+"267","Pontificia Universidad Catolica de Chile",1
+"268","Portland State University",1
+"269","Preferred Networks Inc.",1
+"270","Princeton University",1
+"271","Psychiatric University Clinics",1
+"272","Purdue University",6
+"273","Queen's University",2
+"274","Queen Mary University of London",3
+"275","Queensland University of Technology",6
+"276","Rice University",1
+"277","Ritsumeikan University",1
+"278","RMIT University",5
+"279","Robert Gordon University",1
+"280","Robotics Institute",1
+"281","Rochester Institute of Technology",2
+"282","Royal College of Art",1
+"283","Royal Free Hospital",1
+"284","Royal Holloway University of London",1
+"285","Royal Institute of Technology",1
+"286","Royal Institute of Technology KTH",1
+"287","RWTH Aachen University",3
+"288","Saarland University",7
+"289","Sage Bionetworks",1
+"290","Salzburg University of Applied Sciences",1
+"291","Samsung Research",1
+"292","Seattle Children's Hospital",1
+"293","Seoul National University",3
+"294","Shanghai Jiao Tong University",1
+"295","Silverline Memories",1
+"296","Simon Fraser University",15
+"297","Singapore Management University",2
+"298","Singapore University of Technology and Design",1
+"299","SINTEF",1
+"300","Snap Inc.",2
+"301","Social Work Independent Consultant",1
+"302","Sorbonne Universite",1
+"303","Southeast University",1
+"304","Spotify",1
+"305","St Andrew's Healthcare",1
+"306","St. Andrew's Healthcare",1
+"307","Stanford University",20
+"308","State University of New York",1
+"309","Stockholm University",1
+"310","Stony Brook University",8
+"311","Studio Zewde",1
+"312","Superflux",1
+"313","Swansea University",5
+"314","Swinburne University of Technology",1
+"315","Syddansk Universitet",1
+"316","Symantec Research Labs",1
+"317","Syracuse University",4
+"318","Tableau Research",1
+"319","teamVoid",1
+"320","Technical University Darmstadt",1
+"321","Technical University of Berlin",1
+"322","Technical University of Eindhoven",1
+"323","Technion",1
+"324","Technische Hochschule Ingolstadt",1
+"325","Technische Universitat Berlin",2
+"326","Technische Universitat Darmstadt",2
+"327","Technische Universitat Dresden",1
+"328","Technische Universitat Wien",2
+"329","Texas AM University",3
+"330","The Cedarwood Trust",1
+"331","The Children's Hospital of Philadelphia",1
+"332","The Kyoto College of Graduate Studies for Informatics",1
+"333","The Open Data Institute",1
+"334","The Pennsylvania State University",1
+"335","The Smith-Kettlewell Eye Research Institute",1
+"336","The University of Auckland",2
+"337","The University of Melbourne",5
+"338","The University of Nottingham",1
+"339","The University of Sydney",1
+"340","The University of Tokyo",4
+"341","Tongji University",1
+"342","Toyota Research Institute",1
+"343","Trinity College Dublin",5
+"344","TripAdvisor",1
+"345","Troy High School",1
+"346","Tsinghua University",8
+"347","TU Darmsatdt",1
+"348","TU Darmstadt",2
+"349","TU Wien",2
+"350","Tufts University",1
+"351","Ubisoft Massive Entertainment",1
+"352","UCL Institute of Education",1
+"353","Ulius-Maximilians-Universitat",1
+"354","Ulm University",3
+"355","Ulsan National Institute of Science and Technology",1
+"356","United Nations University",1
+"357","United States Naval Academy",1
+"358","Universidad Autonoma de Occidente",1
+"359","Universidad Carlos III de Madrid",1
+"360","Universidad de Colima",1
+"361","Universidad de San Buenaventura",1
+"362","Universidad del Cauca",1
+"363","Universidad Loyola Andalucia",1
+"364","Universidade de Lisboa",1
+"365","Universidade Federal de Minas Gerais",1
+"366","Universita degli Studi di Trento",1
+"367","Universita della Svizzera italiana",1
+"368","Universitat Duisburg-Essen",1
+"369","Universitat Regensburg",1
+"370","Universite de Lille",1
+"371","Universite Felix Houphouet-Boigny",1
+"372","Universite Grenoble Alpes",1
+"373","Universite Paris-Saclay",2
+"374","Universite Paris-Sud",1
+"375","Universiti Teknologi MARA",2
+"376","University Ştefan cel Mare of Suceava",2
+"377","University College Cork",3
+"378","University College Dublin",1
+"379","University College London",18
+"380","University Hospital of Wurzburg",1
+"381","University of Auckland",4
+"382","University of Basel",4
+"383","University of Bath",8
+"384","University of Bergen",1
+"385","University of Birmingham",2
+"386","University of Bonn",1
+"387","University of Bremen",2
+"388","University of Bristol",9
+"389","University of British Columbia",9
+"390","University of Calgary",3
+"391","University of California Berkeley",14
+"392","University of California Davis",1
+"393","University of California Irvine",7
+"394","University of California San Diego",7
+"395","University of California Santa Cruz",4
+"396","University of Cambridge",3
+"397","University of Canterbury",4
+"398","University of Central Florida",1
+"399","University of Central Lancashire",1
+"400","University of Chicago",5
+"401","University of Chinese Academy of Sciences",2
+"402","University of Colorado",1
+"403","University of Colorado Boulder",11
+"404","University of Copenhagen",8
+"405","University of Delaware",1
+"406","University of Duisburg-Essen",2
+"407","University of Dundee",2
+"408","University of Edinburgh",7
+"409","University of Florida",2
+"410","University of Fribourg",1
+"411","University of Glasgow",6
+"412","University of Gothenburg",2
+"413","University of Hagen",1
+"414","University of Haifa",2
+"415","University of Hamburg",1
+"416","University of Helsinki",1
+"417","University of Houston",1
+"418","University of Illinois at Chicago",1
+"419","University of Illinois at Urbana-Champaign",6
+"420","University of Illinois at Urbana Champaign",1
+"421","University of Illinois Urbana-Champaign",1
+"422","University of Iowa",2
+"423","University of Kent",1
+"424","University of Kentucky",1
+"425","University of Lapland",3
+"426","University of Lille",1
+"427","University of Lincoln",1
+"428","University of Lisbon",1
+"429","University of Liverpool",1
+"430","University of London",7
+"431","University of Loughborough",1
+"432","University of Luxembourg",1
+"433","University of Manchester",2
+"434","University of Manitoba",4
+"435","University of Maryland",4
+"436","University of Maryland College Park",14
+"437","University of Massachusetts",2
+"438","University of Massachusetts Boston",1
+"439","University of Melbourne",7
+"440","University of Michigan",27
+"441","University of Minnesota",2
+"442","University of Missouri",1
+"443","University of Nevada",1
+"444","University of New Brunswick",1
+"445","University of New South Wales",1
+"446","University of North Carolina - Chapel Hill",1
+"447","University of Notre Dame",1
+"448","University of Nottingham",10
+"449","University of Oldenburg",2
+"450","University of Ontario Institute of Technology",3
+"451","University of Otago",2
+"452","University of Oulu",2
+"453","University of Oxford",3
+"454","University of Pittsburgh",1
+"455","University of Potsdam",1
+"456","University of Primorska",1
+"457","University of Queensland",1
+"458","University of Regensburg",6
+"459","University of Salzburg",1
+"460","University of San Francisco",1
+"461","University of Saskatchewan",6
+"462","University of Siegen",3
+"463","University of South Australia",5
+"464","University of Southampton",4
+"465","University of Southern California",1
+"466","University of Southern Denmark",1
+"467","University of St Andrews",3
+"468","University of St. Andrews",1
+"469","University of Strathclyde",1
+"470","University of Stuttgart",10
+"471","University of Sussex",5
+"472","University of Sydney",1
+"473","University of Technology Sydney",3
+"474","University of the West of England",1
+"475","University of Tokyo",5
+"476","University of Toronto",14
+"477","University of Toulouse",2
+"478","University of Trento",1
+"479","University of Tsukuba",5
+"480","University of Twente",1
+"481","University of Ulm",1
+"482","University of Victoria",1
+"483","University of Virginia",1
+"484","University of Washington",60
+"485","University of Waterloo",14
+"486","University of Wisconsin - Madison",1
+"487","University of Wurzburg",1
+"488","University of York",6
+"489","University of Zurich",1
+"490","University Paris-Sud",3
+"491","Uppsala University",3
+"492","Utrecht University",5
+"493","Vassar College",1
+"494","Versed Education Group",1
+"495","Victoria University of Wellington",1
+"496","Virginia Tech",1
+"497","Vista Center for the Blind and Visually Impaired",1
+"498","Vita-Salute San Raffaele University",1
+"499","Voysis",1
+"500","Vrije Universiteit Brussel",1
+"501","Waseda Research Institute for Science and Engineering",1
+"502","Washington University in St. Louis",1
+"503","William & Mary",1
+"504","Worcester Polytechnic Institute",2
+"505","Wuhan University",1
+"506","Xi'an Jiaotong-Liverpool University",1
+"507","Yahoo",3
+"508","Yahoo Japan Corporation",1
+"509","York Teaching Hospital NHS Foundation Trust",1
+"510","York University",1
+"511","Zhejiang Univeristy",1
+"512","Zhejiang University",3
+"513","Zucker Hillside Hospital",1
+"514","Zurich University of the Arts",2
