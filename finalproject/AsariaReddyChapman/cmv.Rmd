@@ -1,0 +1,528 @@
+---
+title: "COSC5610 CMV Analysis"
+author: "Noah Asaria, David Reddy, Eddie Chapman"
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  cache = TRUE, message = FALSE, warning = FALSE
+)
+library(cowplot)
+library(ggridges)
+library(igraph)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(RColorBrewer)
+library(tidytext)
+library(tidyverse)
+library(tm)
+library(topicmodels)
+```
+
+# Import, cleaning
+
+## Data import
+
+```{r import}
+threads <- read_csv("threads.csv", col_names = TRUE) %>%
+  mutate(id = as.factor(id),
+         timestamp = as.Date.POSIXct(timestamp),
+         week = week(timestamp),
+         month = month(timestamp),
+         year = year(timestamp),
+         ups = as.integer(ups),
+         downs = as.integer(downs))
+
+threads
+
+comments <- read_csv('comments.csv', col_names = TRUE) %>%
+  mutate(id = as.factor(id),
+         thread = as.factor(thread),
+         timestamp = as.Date.POSIXct(timestamp)) %>%
+  semi_join(threads, by = c("thread" = "id"))
+
+
+comments
+```         
+
+## Filtering threads and comments
+
+The dataset contains unwanted threads relating to subreddit administration etc. These can be identified by the lack of "CMV:" at the beginning of their titles.
+
+We retain only threads that begin with "CMV:". These indicate a debate thread, as opposed to a moderator post or other irrelvant thread. 
+
+We also remove comments made by a thread's original author, a bot, or a deleted account.
+
+Finally, we reduce the comment data to unique user-thread pairs. We don't care how many times a user commented.
+
+```{r filter}
+# Remove non-debate threads
+threads <- filter(threads, str_starts(title, coll("CMV:")))
+
+# Update comments to reflect filtered thread data
+comments <- semi_join(comments, threads, by = c("thread" = "id"))
+
+# Remove comments of unwanted users
+comments <- filter(comments, !author %in% c(op, 'DeltaBot','[DELETED]', '[deleted]'))
+
+# Update threads to reflect filtered comment data
+threads <- semi_join(threads, comments, by = c("id" = "thread"))
+
+# Reduce to unique user to thread comments
+comments <- distinct(comments, author, thread)
+
+threads
+comments
+```
+
+## Clean thread text
+
+Remove "CMV:", URLs, moderator notes, and formatting characters from the thread title and text.
+
+```{r clean}
+patterns <- c("\\*Hello, users of CMV\\! .* CMVing\\!\\*" = "",  # Mod text
+              "CMV:" = "",                                       # Start of thread titles
+              "https?:\\/\\/.*[\r\n]*" = " ",                    # URLs
+              "_____|\\\n|&amp;|#x200B;|nbsp|&gt;" = " ")        # Formatting characters
+
+threads <- mutate(threads, 
+                  title = str_replace_all(title, patterns), 
+                  text  = str_replace_all(text, patterns))
+```
+
+# Exploration
+
+## Thread comment activity
+
+Here we identify the total number of unique commentors for each thread.
+```{r users_per_thread}
+threads <- left_join(threads, 
+                     group_by(comments, thread) %>% count(name = 'n_users'), 
+                     by = c("id" = "thread"))
+```
+
+```{r explore_make_plots, echo = FALSE}
+p1 <- ggplot(threads, aes(x = n_users)) +
+  geom_density() +
+  scale_x_continuous(trans='log2') +
+  geom_vline(aes(xintercept = mean(n_users), color = "mean"), 
+             linetype = "solid", 
+             alpha = .75, 
+             size = .5, 
+             show.legend = TRUE) +
+  geom_vline(aes(xintercept = median(n_users), color = "median"), 
+             linetype = "solid", 
+             alpha = .75, 
+             size = .5, 
+             show.legend = TRUE) +
+  scale_colour_manual(name = "Line Color", values = c(mean="red", median="blue")) +
+  theme_half_open(12) + 
+  theme(plot.margin = margin(6, 2, 6, 0)) +
+  background_grid(minor = 'none') +
+  ylab(" ") +
+  xlab("Unique commenters")
+  
+
+p2 <- ggplot(threads, aes(x = ups)) +
+  geom_density() +
+  scale_x_continuous(trans='log10') +
+  geom_vline(aes(xintercept = mean(ups), color = "mean"), 
+             linetype = "solid", 
+             alpha = .75, 
+             size = .5, 
+             show.legend = TRUE) +
+  geom_vline(aes(xintercept = median(ups), color = "median"), 
+             linetype = "solid", 
+             alpha = .75, 
+             size = .5, 
+             show.legend = TRUE) +
+  scale_colour_manual(name = "Line Color",
+                      values = c(mean="red", median="blue")) +
+  theme_half_open(12) + 
+  theme(plot.margin = margin(6, 2, 6, 2)) +
+  background_grid(minor = 'none') +
+  ylab(" ") +
+  xlab("Upvotes")
+  
+
+
+
+title <- ggdraw() + 
+  draw_label("Distribution of per thread",
+             x = 0, 
+             hjust = 0) +
+  theme(plot.margin = margin(0, 0, 0, 7))
+
+prow <- plot_grid(p1 + theme(legend.position = "none"), 
+                  p2 + theme(legend.position = "none"), 
+                  align = "vh",
+                  labels = c("A", "B"),
+                  hjust = -1,
+                  nrow = 1)
+
+legend <- get_legend(
+  # create some space to the left of the legend
+  p1 + theme(legend.box.margin = margin(0, 0, 0, 10))
+)
+
+plot_grid(prow, legend, rel_widths = c(2, .4))
+
+ggsave("thread_commenter_upvote_distribution.png", 
+       plot = last_plot(), 
+       device = NULL, 
+       path = NULL,
+       scale = 1,
+       width = NA, 
+       height = NA, 
+       units = c("in", "cm", "mm"),
+       dpi = 300, 
+       limitsize = TRUE)
+
+
+
+# t1 <- threads %>%
+#   select("Up votes" = ups, "Unique users" = n_users) %>%
+#   summary() %>%
+#   as.data.frame() %>%
+#   select(-Var1, " " = Var2) %>%
+#   separate(Freq, c("Names", "Values"), sep = ":") %>%
+#   mutate(Values = round(as.numeric(Values), digits = 0)) %>%
+#   pivot_wider(names_from = Names, values_from = Values) %>%
+#   kable(digits = 0, align = "rrrrrrr", caption = "Summary statistics for thread data")
+# 
+# t1
+```
+
+
+# Topic modelling
+
+## Sampling
+
+```{r sample}
+sample <- threads %>%
+  filter(ups > 11, n_users > 11) %>%
+  select("document" = id, title, text)
+
+nrow(sample)
+```
+
+## Preprocessing
+
+### Tokenization, stop word removal, stemming, filtering
+```{r tokenize}
+my_stop_words <- data_frame(word = c("edit", "reddit", "cmv", "change", "view", 
+                                     "people", "person", "post", "posts", "vote", "delta", 
+                                     "score", "comment", "debate", "life", "feel", 
+                                     "time", "human", "job", "understand", "society", 
+                                     "country", "countries", "reason", "crime", "issue",
+                                     "argument", "logic", "logical", "acceptable", 
+                                     "unacceptable", "problem", "wrong", "word", "bad", 
+                                     "culture", "reasonable", "make", "free", "live", 
+                                     "ideal", "idea", "bullshit", "evil", "views", "makes",
+                                     "true", "false", "article", "allow", "allowed", "real",
+                                     "fake", "opinion", "issue", "issues", "comments", "read",
+                                     "reading", "thread", "threads", "respond", "response",
+                                     "responding", "good", "arguments", "simply", "simple",
+                                     "history", "living", "stop", "care", "effect", "effective",
+                                     "assume", "assumption", "assuming", "heard", "responsible",
+                                     "responsibility", "irresponsible", "forum", "evidence",
+                                     "evident", "claim", "claims", "claiming", "claimed",
+                                     "inform", "information", "define", "definition", "defining",
+                                     "defined", "literally", "thinking", "thinks", "thought",
+                                     "dog", "dogs", "lot", "lots", "discussion", "discussions",
+                                     "moral", "immoral", "morality", "moralistic", "position",
+                                     "positions", "mean", "means", "meant", "meaning", "laws",
+                                     "law", "road", "day", "days", "support", "supporting", 
+                                     "supported", "supporter", "supporters"))
+
+tokens <- sample %>%
+  mutate(text = paste(title, text)) %>% 
+  select(document, text) %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>%
+  anti_join(my_stop_words) %>%
+  mutate(word = str_extract(word, "[a-z']+")) %>%
+  filter(str_length(word) > 2) %>%
+  add_count(document, word) %>%
+  distinct() %>%
+  add_count(word, name = 'document_count') %>%
+  filter(document_count / nrow(sample) > 0.01) %>%
+  select(-document_count) %>%
+  arrange(word)
+```
+
+
+## Modelling
+
+### DTM and LDA
+
+```{r dtm}
+k <- 10
+
+lda <- tokens %>%
+  cast_dtm(document, word, n) %>%
+  LDA(k = k, method = "VEM", control = list(seed = 2019))
+```
+
+
+Topics are visualized by their most frequently occuring words.
+
+```{r}
+pallete <- brewer.pal(k, "Paired")
+
+topic_names <- tibble(
+  topic = seq(1, k),
+  name_list = apply(terms(lda, 4), 2, paste, collapse = "\n"),
+  name_row = apply(terms(lda, 4), 2, paste, collapse = " | "),
+  color = pallete)
+
+topic_names
+
+beta <- tidy(lda, matrix = "beta")
+
+gamma <- tidy(lda, matrix = "gamma")
+
+top_terms <- beta %>%
+  group_by(topic) %>%
+  top_n(7, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+top_threads <- gamma %>%
+  group_by(topic) %>%
+  arrange(topic, desc(gamma)) %>%
+  top_n(3, gamma) %>%
+  ungroup() %>%
+  left_join(sample) %>%
+  left_join(topic_names) %>%
+  select(topic, name_list, gamma, title)
+
+top_threads
+```
+
+```{r topic_table, echo = FALSE}
+t2 <- top_threads %>%
+  select("Topic" = topic, "Words" = name_list, "Thread" = title) %>%
+  kable() %>%
+  kable_styling(full_width = FALSE) %>%
+  column_spec(1, bold = T) %>%
+  collapse_rows(columns = 1:2, valign = "top")
+
+t2
+```
+
+
+```{r}
+p3 <- top_terms %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  scale_color_brewer(palette = "Paired", aesthetics = "fill") +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  coord_flip() +
+  scale_x_reordered() +
+  scale_y_continuous(breaks = c(0, 0.02, 0.04, 0.06)) +
+  theme_half_open(12) + 
+  theme(plot.margin = margin(12, 20, 8, 8),
+        axis.text.x = element_text(size = 7)) +
+  background_grid("none") +
+  xlab(NULL) +
+  ylab(NULL)
+```
+```{r}
+p3
+
+ggsave("topic_distribution.png", 
+       plot = last_plot(), 
+       scale = 1,
+       dpi = 300)
+```
+
+
+```{r}
+affiliations <- comments %>%
+  semi_join(sample, by = c("thread" = "document")) %>%
+  select(author, thread) %>%
+  distinct()
+
+affiliations
+```
+
+
+```{r}
+comment_topics <- affiliations %>%
+  add_count(author) %>%
+  filter(n > 25) %>%
+  left_join(gamma, by = c("thread" = "document"))  %>%
+  group_by(author, topic) %>%
+  summarize(gamma = round(mean(gamma), digits = 3)) %>%
+  left_join(topic_names) %>%
+  rename("topic_name" = name_row) %>%
+  mutate(topic = factor(topic),
+         topic_name = factor(topic_name))
+
+comment_topics
+```
+```{r}
+p4 <- ggplot(comment_topics, aes(x = gamma, y = topic_name, 
+                                 fill = topic_name, 
+                                 height = ..density.., 
+                                 color = topic_name)) +
+  geom_density_ridges(scale = 2.5, 
+                      rel_min_height = 0.01, 
+                      stat = "density") +
+  scale_color_brewer(palette = "Paired", 
+                     aesthetics = c("fill", "color")) +
+  scale_y_discrete(expand = c(0.01, 0)) +
+  scale_x_continuous(expand = c(0.01, 0)) +
+  theme_ridges() +
+  theme(legend.position = "none", 
+        axis.text = element_text(size = 9)) +
+  ylab(NULL)
+
+```
+```{r}
+p4
+ggsave("topic_preferences_frequent_users.png", 
+       plot = last_plot(), 
+       scale = 1,
+       dpi = 300)
+```
+
+```{r}
+ops <- threads %>%
+  semi_join(sample)
+  
+ops
+```
+
+
+# Network analysis
+
+Produce an affiliation table containing one row for each unique thread that a user has commented on.
+
+```{r}
+month_affiliations <- affiliations %>%
+  rename("user" = author) %>%
+  left_join(threads, by = c("thread" = "id")) %>%
+  group_by(user) %>%
+  add_count(year) %>%
+  ungroup() %>%
+  filter(n > 6, n < 16) %>%
+  select(user, thread)
+
+month_topic_prefs <- month_affiliations %>%
+  left_join(gamma, by = c("thread" = "document")) %>%
+  group_by(user, topic) %>%
+  summarise(gamma = mean(gamma)) %>%
+  ungroup() %>%
+  group_by(user) %>%
+  top_n(1, gamma) %>%
+  ungroup()
+
+month_affiliations <- month_affiliations %>%
+  left_join(month_topic_prefs) %>%
+  select(user, thread, topic)
+
+month_affiliations
+```
+
+Creating the graph.
+
+```{r}
+g <- graph.data.frame(select(month_affiliations, -topic), directed = FALSE)
+
+V(g)$type <- bipartite_mapping(g)$type
+```
+
+```{r}
+bipartite_matrix <- as_incidence_matrix(g)
+
+user_matrix_prod <- bipartite_matrix %*% t(bipartite_matrix)
+
+diag(user_matrix_prod) <- 0
+
+g <- graph_from_incidence_matrix(user_matrix_prod, weighted = TRUE)
+```
+
+
+```{r}
+deg <- degree(g)
+bet <- betweenness(g)
+clos <- closeness(g)
+eig <- eigen_centrality(g)$vector
+author <- V(g)$name
+```
+```{r}
+cent_df <- data.frame(author, deg, bet, clos, eig) %>%
+  left_join(month_topic_prefs, by = c("author" = "user")) %>%
+  left_join(topic_names)
+```
+
+```{r}
+ggplot(cent_df, aes(gamma, eig, color = name_row)) +
+  geom_point(alpha = .5, size = .3) +
+  geom_smooth(alpha = .4, size = 0.5, se = FALSE) +
+  ggtitle("User centrality by topic preference")
+```
+
+
+```{r}
+normalize_01 <- function(x) { 
+  (x - min(x)) / (max(x) - min(x)) + 0.25 
+}
+
+node_attrs <- tibble(name = V(g)$name) %>% 
+  left_join(cent_df, by = c("name" = "author"))
+```
+
+```{r}
+V(g)$topic <- cent_df[["topic"]]
+V(g)$topic_name <- cent_df[["name_row"]]
+V(g)$size <- cent_df[["eig"]] * 5
+V(g)$shape <- "circle"
+V(g)$label <- NA
+E(g)$edge.color <- "black"
+E(g)$width <- E(g)$weight / 30
+```
+
+```{r}
+weights <- c(1, rep(100, ecount(g) - 1))
+
+# lf <- g  %>%
+#   layout_with_fr(., niter = 500, weights = weights) %>%
+#   norm_coords(., ymin = -1, ymax = 1, xmin = -1, xmax = 1)
+
+lgl <- g %>%
+  layout_with_lgl(.) %>% 
+  norm_coords(., ymin = -1.1, ymax = 1.1, xmin = -1.1, xmax = 1.1)
+```
+```{r}
+# bottom, left, top, right
+par(mar = c(5, 4, 4, 2) + 0.1, mai = c(.1, 2, .1, .1), mgp = c(3, 1, 0))
+
+png("network_topics.png", width = 7.290, height = 4.5, units = "in", res = 300)
+plot(g, rescale = FALSE, layout = lgl, 
+     vertex.color = pallete[as.numeric(vertex_attr(g, "topic"))])
+
+legend(-2.45, -.2,
+       legend = topic_names$name_row,
+       pch = 19,
+       cex = 0.75,
+       col = topic_names$color,
+       bty = "n",
+       title = "Topic Preferences")
+dev.off()
+```
+```{r}
+ggsave("network_topics.png", 
+       plot = last_plot(), 
+       scale = 1,
+       dpi = 300)
+```
